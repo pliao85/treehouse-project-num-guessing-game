@@ -41,11 +41,9 @@ def start_game():
             if guess < answer:
                 print("It is higher!")
                 attempt += 1
-                print("{}".format(attempt))
             elif guess > answer:
                 print("It is lower!")
-                attempt += 1
-                print("{}".format(attempt))
+                attempt += 1                
             elif guess == answer:
                 print("You've got it!")
                 attempt += 1
@@ -55,9 +53,9 @@ def start_game():
                 break
             
         except ValueError as err:
-            print("Oh no we ran into an issue. Please try agian.")
+            print("We ran into an issue. Please try agian.")
             if err:
-                print("({})".format(err))          
+                print("({})".format(err))
         
 
 # Create highscore list to hold of the high scores
