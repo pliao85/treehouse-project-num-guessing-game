@@ -13,11 +13,11 @@ import random
 # Display high score
 def print_highscore():
     if len(highscore) == 0:
-        print("The current high score is 0")
+        print("The current HIGHSCORE is 0")
     else:
         highscore.sort()
         int_hs = highscore[0]        
-        print("The current high score is {}".format(int_hs))
+        print("\nThe current HIGHSCORE is {}".format(int_hs))
 
 
 # Start game function
@@ -35,7 +35,7 @@ def start_game():
         
         try:
             guess = int(guess)            
-            if guess > 10:
+            if guess > 10 or guess < 1:
                 raise ValueError("Enter a number less than 10")            
         
             if guess < answer:
@@ -68,14 +68,10 @@ print("""
       ----------------------------------------                   
       """)
 
-print_highscore()
-
 # Ask the player if you want to play the game again
-while True:
-
-    start_game()
-    
+while True:    
     print_highscore()
+    start_game()    
     
     retry = input("Would you like to start again? [Y/N] ")
     retry = retry.lower()
