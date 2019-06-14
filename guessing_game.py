@@ -3,35 +3,72 @@ Python Web Development Techdegree
 Project 1 - Number Guessing Game
 --------------------------------
 
-For this first project we will be using Workspaces. 
-
-NOTE: If you strongly prefer to work locally on your own computer, you can totally do that by clicking: File -> Download Workspace in the file menu after you fork the snapshot of this workspace.
+Created by: Paul Liao
 
 """
 
 import random
 
 
+# Display high score
+def print_highscore():
+    if len(highscore) == 0:
+        print("The current high score is 0")
+    else:
+        highscore.sort()
+        int_hs = highscore[0]        
+        print("The current high score is {}".format(int_hs))
+
+
+# Start game function
 def start_game():
-    """Psuedo-code Hints
+   
+    # Generate and store a random number called answer
+    answer = random.randint(1,10)
     
-    When the program starts, we want to:
-    ------------------------------------
-    1. Display an intro/welcome message to the player.
-    2. Store a random number as the answer/solution.
-    3. Continuously prompt the player for a guess.
-      a. If the guess greater than the solution, display to the player "It's lower".
-      b. If the guess is less than the solution, display to the player "It's higher".
-    
-    4. Once the guess is correct, stop looping, inform the user they "Got it"
-         and show how many attempts it took them to get the correct number.
-    5. Let the player know the game is ending, or something that indicates the game is over.
-    
-    ( You can add more features/enhancements if you'd like to. )
-    """
-    # write your code inside this function.
+    # Create a variable for number of tries
+    attempt = 0
 
+    # Display welcome message 
+    print("""
+          ----------------------------------------
+            Welcome to the Number Guessing Game!
+          ----------------------------------------                   
+          """)
 
-if __name__ == '__main__':
-    # Kick off the program by calling the start_game function.
+    print_highscore()
+            
+    # Prompt user for a number between 1 - 10
+    while True:
+        guess = input("Pick a number between 1 - 10: ")
+        guess = int(guess)
+        if guess < answer:
+            print("It is higher!")
+            attempt += 1
+            print("{}".format(attempt))
+        elif guess > answer:
+            print("It is lower!")
+            attempt += 1
+            print("{}".format(attempt))
+        elif guess == answer:
+            print("You've got it!")
+            attempt += 1
+            print("You have made {} attempt/s.".format(attempt))
+            highscore.append(attempt)
+            highscore.sort()
+            break
+        
+
+# Create highscore list to hold of the high scores
+highscore = []
+
+# Ask the player if you want to play the game again
+while True:
     start_game()
+    
+    retry = input("Would you like to start again? [Y/N] ")
+    retry = retry.lower()
+    
+    if retry == 'n':
+        print("Thank you for playing!")
+        break
