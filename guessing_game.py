@@ -16,16 +16,16 @@ highscore = []
 # Display high score
 def print_highscore():
     if len(highscore) == 0:
-        print("The current HIGHSCORE is 0")
+        print("The current HIGHSCORE is 0\n")
     else:
         highscore.sort()
         int_hs = highscore[0]        
-        print("\nThe current HIGHSCORE is {}".format(int_hs))
+        print("\nThe current HIGHSCORE is {}\n".format(int_hs))
 
 
 # Start game function
 def start_game():
-   
+    
     # Generate and store a random number called answer
     answer = random.randint(1,10)
     
@@ -40,7 +40,7 @@ def start_game():
             guess = int(guess)            
             
             if guess > 10 or guess < 1:
-                raise Exception("Invalid range. Please only pick a number between 1 - 10:  ")             
+                raise Exception("Invalid range. Please only pick a number between 1 - 10.")             
         
             if guess < answer:
                 print("It is higher!")
@@ -56,6 +56,7 @@ def start_game():
             
         except ValueError:
             print("We ran into an issue. Please try again.")
+            attempt -= 1
         except Exception as err:
             if err:
                 print("{}".format(err))
@@ -98,4 +99,3 @@ while True:
     elif retry == 0:
         print("Thank you for playing!")
         break
-    
