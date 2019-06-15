@@ -10,6 +10,9 @@ Created by: Paul Liao
 import random
 
 
+# Create highscore list to hold of the high scores
+highscore = []
+
 # Display high score
 def print_highscore():
     if len(highscore) == 0:
@@ -35,15 +38,14 @@ def start_game():
         
         try:
             guess = int(guess)            
+            
             if guess > 10 or guess < 1:
-                raise ValueError("Enter a number less than 10")            
+                raise Exception("Invalid range. Please only pick a number between 1 - 10:  ")             
         
             if guess < answer:
                 print("It is higher!")
-                attempt += 1
             elif guess > answer:
                 print("It is lower!")
-                attempt += 1                
             elif guess == answer:
                 print("You've got it!")
                 attempt += 1
@@ -52,15 +54,31 @@ def start_game():
                 highscore.sort()
                 break
             
-        except ValueError as err:
-            print("We ran into an issue. Please try agian.")
+        except ValueError:
+            print("We ran into an issue. Please try again.")
+        except Exception as err:
             if err:
-                print("({})".format(err))
-        
+                print("{}".format(err))
+            attempt -= 1
+                        
+        attempt += 1
 
-# Create highscore list to hold of the high scores
-highscore = []
 
+# Retry function would retrun 1 or 0 for correct answer. It will loop if user fails to enter the correct response
+def retry_game():
+    while True:
+        retry = input("Would you like to start again? [Y/N] ")
+        retry = retry.lower()    
+        if retry == 'y':
+            return 1
+            break
+        elif retry == 'n':
+            return  0 
+            break
+        else:
+            print("Please enter Y or N")
+            continue
+    
 # Display welcome message 
 print("""
       ----------------------------------------
@@ -73,9 +91,11 @@ while True:
     print_highscore()
     start_game()    
     
-    retry = input("Would you like to start again? [Y/N] ")
-    retry = retry.lower()
+    retry = retry_game()
     
-    if retry == 'n':
+    if retry == 1:
+        continue    
+    elif retry == 0:
         print("Thank you for playing!")
         break
+    
